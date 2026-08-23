@@ -1,0 +1,142 @@
+# Aaron Crooks
+# Section Lab 54
+# December 6, 2023
+# Final Project
+
+# This program should let the user enter any number of items into the program and then calculate and output the subtatal, tax, shipping, handling, and total due.
+
+# User Greeting Function
+def userGreeting():
+    print('This program lets the user enter products to be shipped and calculates the\nsubtotal, tax, shipping and handling, and the total due.')
+    print()
+
+# State Initials Function
+def getStateInitials():
+    stateInitials = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+                     'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+                     'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+                     'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+                     'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+
+# Input for State Initials
+    stateInput = input('Please enter the 2 letter abbreviation of the state you are shipping to. ')
+    print()
+
+# Error Check For State Initials
+    while stateInput not in stateInitials:
+        stateInput = input('ERROR- Please enter the 2 letter abbreviation of the state you are shipping to. ')
+
+    return stateInput
+
+# Product Information Function
+def getProductInfo():
+
+# The Product Info List
+    productInfo = []
+    moreProducts = True
+    
+# While Loop for Product Info Function
+    while moreProducts == True:
+
+# Input for Item Quantity
+        itemQuantity = int(input('Enter quantity (enter 0 if done): '))
+
+        if itemQuantity == 0:
+            moreProducts = False
+        else:
+            
+# Input for Item Weight
+            itemWeight = float(input('Enter item weight: '))
+
+# Input for Item Price
+            itemPrice = float(input('Enter cost of item: '))
+            print()
+
+# Append the Variables to the List 
+            productInfo.append([itemQuantity, itemWeight, itemPrice])
+            
+    return productInfo
+
+# The Calcultation Function
+def calculate(productList):
+    boxWeight = 0
+    subTotal = 0
+
+    for mainIndex in range(len(productList)):
+        itemQuantity, itemWeight, itemPrice = productList[mainIndex]
+
+        boxWeight = boxWeight + (itemQuantity * itemWeight)
+        subTotal = subTotal + (itemQuantity * itemPrice)
+
+# Calculate The Shipping
+    shipping = boxWeight * .25
+
+# Assign Handling Cost
+    if boxWeight < 10:
+        handling = 1
+    elif boxWeight > 100:
+        handling = 5
+    else:
+        handling = 3
+
+    shippingHandling = shipping + handling
+
+    return subTotal, shippingHandling
+
+# The Run Again Fuction
+def runAgain():
+    again = input('Would you like to fill another order? (y / n): ')
+
+    while again != 'y' and again != 'n':
+        again = input("INPUT ERROR: Please enter 'y' or 'n': ")
+
+    if again == 'y':
+        run = True
+    else:
+        run = False
+    print()
+
+    return run
+
+# ---------------------------------------------------------------------- MAIN -----------------------------------------------------------------------------------------
+
+# Call User Greeting Function
+userGreeting()
+
+# Variable for Main Loop
+runProgram = True
+
+# The Main Loop
+while runProgram == True:
+
+# Call the Product Info Function
+    productInfoList = getProductInfo()
+
+# Call the Calculate Function
+    subTotal, shippingHandling = calculate(productInfoList)
+
+# Call the State Initials Function
+    stateMain = getStateInitials()
+
+# Calculate Tax Statments
+    if stateMain == 'CA':
+        tax = subTotal * .08
+    else:
+        tax = 0.00
+
+# Calculate Total Due
+    totalDue = subTotal + shippingHandling + tax
+
+# Display Results
+    print(format('Subtotal:', '<25'), format(subTotal, '>20,.2f'))
+    print(format('Tax:', '<25'), format(tax, '>20,.2f'))
+    print(format('Shipping and Handling', '<25'), format(shippingHandling, '>20,.2f'))
+    print(format('Total Due', '<25'), format(totalDue, '>20,.2f'))
+    print()
+
+# Call the Run Function
+    runProgram = runAgain()
+
+# Exit Message
+print()
+print('Have a glorious winter wonderland!')
