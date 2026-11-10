@@ -1,9 +1,8 @@
 # Aaron Crooks
 # Section Lab 54
 # December 6, 2023
-# Final Project
 
-# This program should let the user enter any number of items into the program and then calculate and output the subtatal, tax, shipping, handling, and total due.
+# This program should let the user enter any number of items into the program and then calculate and output the subtotal, tax, shipping, handling, and total due.
 
 # User Greeting Function
 def userGreeting():
@@ -57,7 +56,7 @@ def getProductInfo():
             
     return productInfo
 
-# The Calcultation Function
+# The Calculation Function
 def calculate(productList):
     boxWeight = 0
     subTotal = 0
@@ -83,7 +82,7 @@ def calculate(productList):
 
     return subTotal, shippingHandling
 
-# The Run Again Fuction
+# The Run Again Function
 def runAgain():
     again = input('Would you like to fill another order? (y / n): ')
 
@@ -118,7 +117,7 @@ while runProgram == True:
 # Call the State Initials Function
     stateMain = getStateInitials()
 
-# Calculate Tax Statments
+# Calculate Tax Statements
     if stateMain == 'CA':
         tax = subTotal * .08
     else:
